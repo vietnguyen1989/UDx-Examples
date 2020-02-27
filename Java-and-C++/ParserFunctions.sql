@@ -23,6 +23,9 @@ CREATE LIBRARY Rfc4180CsvParserLib AS :libcsv_libfile;
 \set csv_libfile '\''`pwd`'/build/TraditionalCsvParser.so\'';
 CREATE LIBRARY TraditionalCsvParserLib AS :csv_libfile;
 
+\set libcsv_libfile '\''`pwd`'/build/SimpleReproducer.so\'';
+CREATE LIBRARY ReproducerParserLib AS :libcsv_libfile;
+
 -- Step 2: Create Functions
 CREATE PARSER BasicIntegerParser AS 
 LANGUAGE 'C++' NAME 'BasicIntegerParserFactory' LIBRARY BasicIntegerParserLib;
@@ -35,6 +38,9 @@ LANGUAGE 'C++' NAME 'DelimitedParserExampleFactory' LIBRARY ExampleDelimitedPars
 
 CREATE PARSER LibCSVParser AS 
 LANGUAGE 'C++' NAME 'LibCSVParserFactory' LIBRARY Rfc4180CsvParserLib;
+
+CREATE PARSER ReproducerParser AS
+LANGUAGE 'C++' NAME 'ReproducerParserFactory' LIBRARY ReproducerParserLib;
 
 CREATE PARSER CSVParser AS 
 LANGUAGE 'C++' NAME 'CsvParserFactory' LIBRARY TraditionalCsvParserLib;
@@ -133,3 +139,4 @@ DROP LIBRARY ContinuousIntegerParserLib CASCADE;
 DROP LIBRARY ExampleDelimitedParserLib CASCADE;
 DROP LIBRARY Rfc4180CsvParserLib CASCADE;
 DROP LIBRARY TraditionalCsvParserLib CASCADE;
+DROP LIBRARY ReproducerParserLib CASCADE;

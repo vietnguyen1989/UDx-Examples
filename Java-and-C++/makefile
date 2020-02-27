@@ -118,6 +118,7 @@ UserDefinedLoad: $(BUILD_DIR)/IconverterLib.so \
 				 $(BUILD_DIR)/NativeIntegerParser.so \
 				 $(BUILD_DIR)/TraditionalCsvParser.so \
 				 $(BUILD_DIR)/Rfc4180CsvParser.so \
+				 $(BUILD_DIR)/SimpleReproducer.so \
 				 $(BUILD_DIR)/NoOpSource.so
 
 $(BUILD_DIR)/IconverterLib.so: FilterFunctions/Iconverter.cpp $(SDK_HOME)/include/Vertica.cpp  $(SDK_HOME)/include/BuildInfo.h $(BUILD_DIR)/.exists
@@ -218,6 +219,10 @@ $(BUILD_TMPDIR)/libcsv-3.0.1/.exists: $(BUILD_TMPDIR)
 $(BUILD_DIR)/Rfc4180CsvParser.so: ParserFunctions/Rfc4180CsvParser.cpp $(BUILD_TMPDIR)/libcsv-3.0.1/.exists $(SDK_HOME)/include/Vertica.cpp $(SDK_HOME)/include/BuildInfo.h $(BUILD_DIR)/.exists
 	$(MAKE) -C $(BUILD_TMPDIR)/libcsv-3.0.1 libcsv.a
 	$(CXX) $(CXXFLAGS) -I $(BUILD_TMPDIR)/libcsv-3.0.1 -o $@ ParserFunctions/Rfc4180CsvParser.cpp $(BUILD_TMPDIR)/libcsv-3.0.1/libcsv.a $(SDK_HOME)/include/Vertica.cpp
+
+$(BUILD_DIR)/SimpleReproducer.so: ParserFunctions/SimpleReproducer.cpp $(BUILD_TMPDIR)/libcsv-3.0.1/.exists $(SDK_HOME)/include/Vertica.cpp $(SDK_HOME)/include/BuildInfo.h $(BUILD_DIR)/.exists
+	$(MAKE) -C $(BUILD_TMPDIR)/libcsv-3.0.1 libcsv.a
+	$(CXX) $(CXXFLAGS) -I $(BUILD_TMPDIR)/libcsv-3.0.1 -o $@ ParserFunctions/SimpleReproducer.cpp $(BUILD_TMPDIR)/libcsv-3.0.1/libcsv.a $(SDK_HOME)/include/Vertica.cpp
 
 $(BUILD_DIR)/NoOpSource.so: SourceFunctions/NoOpSource.cpp $(SDK_HOME)/include/Vertica.cpp  $(SDK_HOME)/include/BuildInfo.h $(BUILD_DIR)/.exists
 	$(CXX) $(CXXFLAGS) -o $@ SourceFunctions/NoOpSource.cpp $(SDK_HOME)/include/Vertica.cpp
